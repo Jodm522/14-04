@@ -1,10 +1,24 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const recipe = sequelize.define('recipe', {
-    name: DataTypes.STRING
+  const Recipe = sequelize.define('Recipe', {
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+      },
+    },
   }, {});
-  recipe.associate = function(models) {
-    // associations can be defined here
+  Recipe.associate = function(models) {
+    Recipe.hasMany(models.Instruction, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
+      hooks: true
+    });
+    Recipe.hasMany(models.Ingredient, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
+      hooks: true
+    });
   };
-  return recipe;
+  return Recipe;
 };

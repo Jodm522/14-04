@@ -1,12 +1,17 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const instructions = sequelize.define('instructions', {
-    specification: DataTypes.TEXT,
+  const Instruction = sequelize.define('Instruction', {
+    specification: {
+      type: DataTypes.TEXT,
+      validate: {
+        notEmpty: true,
+      },
+    },
     listOrder: DataTypes.INTEGER,
     recipeId: DataTypes.INTEGER
   }, {});
-  instructions.associate = function(models) {
-    // associations can be defined here
+  Instruction.associate = function(models) {
+    Instruction.belongsTo(models.Recipe, { foreignKey: 'recipeId' });
   };
-  return instructions;
+  return Instruction;
 };
