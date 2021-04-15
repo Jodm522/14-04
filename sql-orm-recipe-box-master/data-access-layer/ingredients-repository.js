@@ -6,7 +6,7 @@ try {
   const db = require("../models");
   ({ Ingredient } = db);
   if (Ingredient === undefined) {
-    moduleError = "It looks like you need to generate the Ingredient.";
+    moduleError = "It looks like you need to generate the Ingredient model.";
   }
 } catch (e) {
   console.error(e);
